@@ -9,8 +9,8 @@ init_db()
 
 st.title("🔍 Dependency Update Agent")
 st.caption(
-    "Analyze Python dependency updates using hybrid RAG, AST code search, "
-    "and LLM-based impact analysis."
+    "AI-powered dependency impact analysis using Hybrid RAG, "
+    "Python AST code search, and agentic reasoning."
 )
 
 with st.sidebar:
@@ -53,11 +53,50 @@ if st.session_state.get("error"):
     st.error(st.session_state["error"])
 
 if st.session_state.get("result"):
-    st.subheader("Analysis Result")
-    st.markdown(st.session_state["result"])
+    result_text = st.session_state["result"]
 
-st.divider()
-st.subheader("📜 Analysis History")
+    st.subheader("📊 Analysis Summary")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric("Current Version", current)
+
+    with col2:
+        st.metric("Target Version", target)
+
+    with col3:
+        if (
+            "impact = high" in result_text.lower()
+            or "**high**" in result_text.lower()
+        ):
+            st.error("🔴 HIGH RISK")
+        elif (
+            "impact = medium" in result_text.lower()
+            or "**medium**" in result_text.lower()
+        ):
+            st.warning("🟠 MEDIUM RISK")
+        else:
+            st.success("🟢 LOW RISK")
+
+    if (
+        "affected=true" in result_text.lower()
+        or "affected: true" in result_text.lower()
+    ):
+        st.error("⚠️ This upgrade affects the repository")
+    elif (
+        "affected=false" in result_text.lower()
+        or "affected: false" in result_text.lower()
+    ):
+        st.success("✅ No relevant impact detected")
+
+    st.subheader("🔍 Detailed Analysis")
+    st.markdown(result_text)
+
+
+# ==========================================================
+# HISTORY TABLE
+# ==========================================================
 
 try:
     records = get_analyses()
@@ -73,14 +112,23 @@ try:
             "reason",
             "recommendation",
         ]
+
         df = pd.DataFrame(records, columns=columns)
-        st.dataframe(df, use_container_width=True, hide_index=True)
+
+        st.dataframe(
+            df,
+            use_container_width=True,
+            hide_index=True,
+        )
     else:
         st.info("No analyses yet.")
+
 except Exception as e:
     st.warning(f"Couldn't load history: {e}")
 
+
 st.divider()
+
 st.caption(
     "LangChain • Mistral • ChromaDB • BM25 • Python AST • SQLite"
 )
