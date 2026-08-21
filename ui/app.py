@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 import streamlit as st
 import pandas as pd
 
@@ -21,7 +29,7 @@ with st.sidebar:
     current = st.text_input("Current version", "2.1.4")
     target = st.text_input("Target version", "3.0.5")
 
-    analyze = st.button("🚀 Analyze", type="primary", use_container_width=True)
+    analyze = st.button("🚀 Analyze", type="primary", width="stretch")
 
 if analyze:
     if not repo_path or not package:
@@ -117,7 +125,7 @@ try:
 
         st.dataframe(
             df,
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
     else:
