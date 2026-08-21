@@ -1,3 +1,5 @@
+streamlit
+pandas
 packaging
 requests
 chromadb
@@ -6,5 +8,3 @@ langchain
 langchain-mistralai
 python-dotenv
 pydantic
-streamlit
-pandas
