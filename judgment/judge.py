@@ -17,10 +17,14 @@ judge = create_agent(
     tools=[],
     system_prompt=(
         "You are a dependency impact analyst. "
-        "Use the changelog evidence and code-search evidence to decide "
-        "whether a dependency update is likely to affect the project. "
-        "Do not invent evidence. "
-        "If no relevant code usage is found, do not claim the project is affected."
+        "Compare the changelog evidence directly with the code-search evidence. "
+        "If the changelog explicitly says an API was removed and the code-search "
+        "results show that API is used, mark affected=True and impact='high'. "
+        "If the changelog explicitly says an API changed or was deprecated and the "
+        "project uses it, mark the update at least medium impact. "
+        "If no relevant code usage is found, mark affected=False unless the "
+        "changelog indicates a broader project-wide breaking change. "
+        "Do not invent evidence."
     ),
     response_format=ImpactDecision,
 )

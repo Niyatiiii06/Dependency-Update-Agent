@@ -55,3 +55,10 @@ Performance:
 - Improved performance for selected indexing and aggregation operations.
 
 No major new breaking changes were introduced in this patch release.
+
+Pandas 2.0.0 Release Notes
+
+Breaking changes:
+- DataFrame.append() and Series.append() were removed.
+- Use pandas.concat() instead.
+- Code using DataFrame.append() must be migrated before upgrading to pandas 2.0 or later.
