@@ -1,0 +1,4 @@
+pandas==2.1.4
+numpy>=1.24
+requests
+langchain==0.3.0
