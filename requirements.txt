@@ -1,2 +1,8 @@
 packaging
 requests
+chromadb
+rank-bm25
+langchain
+langchain-mistralai
+python-dotenv
+pydantic

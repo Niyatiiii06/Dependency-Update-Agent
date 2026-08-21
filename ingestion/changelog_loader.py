@@ -8,12 +8,21 @@ CHROMA_DB_PATH = "./chroma_store"
 COLLECTION_NAME = "changelog"
 
 def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> list[str]:
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
     chunks = []
-    start = 0
-    while start < len(text):
-        end = start + chunk_size
-        chunks.append(text[start:end])
-        start += chunk_size - overlap
+    current = ""
+
+    for paragraph in paragraphs:
+        if len(current) + len(paragraph) <= chunk_size:
+            current = f"{current}\n\n{paragraph}".strip()
+        else:
+            if current:
+                chunks.append(current)
+            current = paragraph
+
+    if current:
+        chunks.append(current)
+
     return chunks
 
 def load_changelog(filepath: str) -> str:

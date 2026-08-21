@@ -1,0 +1,57 @@
+Pandas 2.1.4 Release Notes
+
+Bug fixes:
+- Fixed an issue where DataFrame operations could produce unexpected results
+  when working with duplicate column labels.
+- Improved handling of missing values in several aggregation operations.
+- Fixed a bug affecting groupby operations with categorical data.
+
+Deprecations:
+- Some older indexing behaviors are deprecated and may be removed in a
+  future major release.
+- Users are encouraged to use the recommended indexing APIs instead of
+  legacy access patterns.
+
+Performance:
+- Improved performance for selected DataFrame operations.
+- Reduced memory usage in some groupby workloads.
+
+Pandas 2.2.0 Release Notes
+
+Breaking changes:
+- Several previously deprecated behaviors have been removed.
+- Some older APIs now raise errors instead of silently accepting invalid
+  input.
+- Code using removed APIs should be updated before upgrading.
+
+Deprecations:
+- Additional legacy methods are now deprecated.
+- Users should migrate to replacement APIs documented in the release notes.
+
+Migration notes:
+- Review indexing-related code before upgrading.
+- Review code that relies on previously deprecated functionality.
+- Run the project's test suite after upgrading.
+
+Pandas 3.0.0 Release Notes
+
+Breaking changes:
+- Several deprecated APIs have been removed.
+- Some default behaviors have changed.
+- Applications relying on legacy behavior may require code changes.
+
+Compatibility:
+- Review all code that uses deprecated pandas APIs.
+- Test data-loading, indexing, grouping, and transformation logic after upgrading.
+
+Pandas 3.0.5 Release Notes
+
+Bug fixes:
+- Fixed several DataFrame indexing issues.
+- Improved stability of groupby operations.
+- Fixed edge cases involving missing values.
+
+Performance:
+- Improved performance for selected indexing and aggregation operations.
+
+No major new breaking changes were introduced in this patch release.
